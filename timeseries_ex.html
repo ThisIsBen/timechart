@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Visualisation test</title>
+    <meta charset="utf-8" />
+       <link href="https://rawgit.com/masayuki0812/c3/master/c3.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js"></script>
+    <script src="https://rawgit.com/masayuki0812/c3/master/c3.js"></script>
+  </head>
+
+<body>
+<p> <b> The chart is displayed below: </b> </p>
+    <div id="chart"></div>
+    <script> 
+
+    var chart = c3.generate({
+    bindto: '#chart',
+    data: {
+        x: 'Date', //the x-axis
+        x_Format: '%Y-%m-%d', // 'xFormat' can be used as custom format of 'x', default '%Y-%m-%d'
+        url: 'data.csv' //it won't work locally. You need to upload it to a web server
+    },
+    
+    axis: {
+            x: {
+                type: 'timeseries', //date format in CSV file needs to be 2000-06-14
+            }
+          }
+
+});
+
+    </script>
+  <p> End of Chart </p>
+  </body>
+
+</html>

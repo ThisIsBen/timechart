@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <title>Visualisation test</title>
+    <meta charset="utf-8" />
+       <link href="https://rawgit.com/masayuki0812/c3/master/c3.css" rel="stylesheet" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.js"></script>
+    <script src="https://rawgit.com/masayuki0812/c3/master/c3.js"></script>
+  </head>
+
+<body>
+
+    <div id="chart"></div>
+    <script> 
+
+    var chart = c3.generate({
+    bindto: '#chart',
+    size: {
+        height: 240,
+        width: 1000
+    },
+    data: {
+        x: 'timeStamp', //the x-axis
+         xFormat: '%Y-%m-%d %H:%M:%SZ', // 'xFormat' can be used as custom format of 'x', default '%Y-%m-%d'
+        url: '/data/C3_test.csv' //it won't work locally. You need to upload it to a web server
+    },
+     zoom: {
+        enabled: true
+    },
+    axis: {
+            x: {
+            label: {
+                text: 'TimeLine',
+                position: 'outer-center'
+            },
+            type: 'timeseries',
+
+            // if true, treat x value as localtime (Default)
+            // if false, convert to UTC internally
+            //localtime: false,
+            tick: {
+                //count:3,
+                format: '%Y-%m-%d %H:%M:%SZ'
+            }
+        },
+        y: {
+            label: {
+                text: 'nonverbal score',
+                position: 'outer-middle'
+            }
+        }
+   },
+    grid: {
+        x: {
+            show: true
+        },
+        y: {
+            show: true
+        }
+    }
+
+});
+chart.axis.range({max: 33, min: 0});
+
+    </script>
+ 
+  </body>
+
+</html>

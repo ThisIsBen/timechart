@@ -73,73 +73,26 @@ class Receiver:
 		nodList=[]
 		smileList=[]
 		bufnum=0
-		timenum=0
-		eyenum=0
-		nodnum=0
-		smilenum=0
+		
+		rev_buffer=''
 
 
 
 		#infinite loop so that function do not terminate and thread do not end.
 		while True:
-				rev_buffer = conn.recv(65536)
-				#print data
+				recv_data = conn.recv(65536)
+
+				
+				
 				bufnum+=1
 
-				timeSet=" "
-				timeSet += " ".join(re.findall("\"timeStamp\": (.*?)Z\"", rev_buffer))
 				
-				#print timeSet
-				temp=timeSet.split(' \"')
-				for i in range(len(temp)):
-					if temp[i]!='' and temp[i]!=' ':
-						
-							timeList.append(temp[i])							
-				del temp[:]
-				print timeList
-
-
-
-				eyeSet = " ".join(re.findall("\"eyeContactIntensity\": (.*?),", rev_buffer))
-				print eyeSet
-				temp=eyeSet.split(' ')
-				#print temp			
-				for i in range(len(temp)):
-					#if temp[i]!= '-1':
-							eyeList.append(temp[i])
-				del temp[:]
-				#print eyeList
-
-
-				nodSet = " ".join(re.findall("\"nodIntensity\": (.*?),", rev_buffer))
-				print nodSet
-				temp=nodSet.split(' ')	
-				#print temp		
-				for i in range(len(temp)):
-					#if temp[i]!= '-1':
-							nodList.append(temp[i])
-				del temp[:]
-				#print nodList
-
-
-				smileSet = " ".join(re.findall("\"smileIntensity\": (.*?),", rev_buffer))
-				temp=smileSet.split(' ')				
-				for i in range(len(temp)):
-					#if temp[i]!= '-1':
-							smileList.append(temp[i])
-				del temp[:]
 				#print smileList
 
 				
 
 
-				timenum+=len(timeList)
 				
-				eyenum+=len(eyeList)
-				
-				nodnum+=len(nodList)
-				
-				smilenum+=len(smileList)
 				
 				
 				'''
@@ -149,15 +102,59 @@ class Receiver:
 				del nodList[:]
 				del smileList[:]
 				'''
-				reply ='Reply...'+rev_buffer
-				if not rev_buffer: 
+				
+				if not recv_data: 
 					break
+				rev_buffer+=recv_data
 			 #send reply back to client
 				#  conn.sendall(reply)
 				#print reply
 
 
 		#came out of loop
+		timeSet=" "
+		timeSet += " ".join(re.findall("\"timeStamp\": (.*?)Z\"", rev_buffer))
+		
+		#print timeSet
+		temp=timeSet.split(' \"')
+		for i in range(len(temp)):
+			if temp[i]!='' and temp[i]!=' ':
+				
+					timeList.append(temp[i])							
+		del temp[:]
+		print timeList
+
+
+
+		eyeSet = " ".join(re.findall("\"eyeContactIntensity\": (.*?),", rev_buffer))
+		print eyeSet
+		temp=eyeSet.split(' ')
+		#print temp			
+		for i in range(len(temp)):
+			#if temp[i]!= '-1':
+					eyeList.append(temp[i])
+		del temp[:]
+		#print eyeList
+
+
+		nodSet = " ".join(re.findall("\"nodIntensity\": (.*?),", rev_buffer))
+		print nodSet
+		temp=nodSet.split(' ')	
+		#print temp		
+		for i in range(len(temp)):
+			#if temp[i]!= '-1':
+					nodList.append(temp[i])
+		del temp[:]
+		#print nodList
+
+
+		smileSet = " ".join(re.findall("\"smileIntensity\": (.*?),", rev_buffer))
+		temp=smileSet.split(' ')				
+		for i in range(len(temp)):
+			#if temp[i]!= '-1':
+					smileList.append(temp[i])
+		del temp[:]
+		
 		#write to a file
 		self.write2file(fp,timeList,eyeList,nodList,smileList)
 		#close file
@@ -165,12 +162,8 @@ class Receiver:
 		#close conn
 		conn.close()
 		print bufnum
-		print timenum
-		print eyenum
-		print nodnum
-		print smilenum
-		print sys.getsizeof('{"begin_end": "-","eyeContactIntensity": 30,"nodIntensity": 0,"smileIntensity": 6,"timeStamp": "2016-12-01 18:02:03Z"},')
-
+		
+	
 
 # set up a Receiver objects array of size 10
 guest = []

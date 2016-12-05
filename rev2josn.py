@@ -3,11 +3,7 @@ Simple socket server using threads
 it prints whatever clients sent to it on its terminal.
 '''
 
-#!/usr/bin/env python
-#from unidecode import unidecode
-#from simplejson.compat import StringIO
 
-#import demjson
 
 
 
@@ -53,20 +49,17 @@ class Receiver:
 	def write2file(self,fp,timeList,eyeList,nodList,smileList):
 		
 		if(len(timeList)!=0):
-			#fp = open("/var/www/html/csv/nonverbal_data.csv", "w+")
-			#fp = open("./nonverbal_data.csv", "w+")
+			
 			for timeindex in range(len(timeList)):
-				#if eyeList[timeindex]!='-1' and nodList[timeindex]!='-1' and smileList[timeindex]!= '-1':
 					fp.write( timeList[timeindex]+","+str(eyeList[timeindex])+","+str(nodList[timeindex])+","+str(smileList[timeindex])+"\n");
-			#fp.close()	
+			
 
 
 
 #Function for handling connections. This will be used to create threads
 	def clientthread(self,conn):
-		#Sending message to connected client
-		#conn.send('Welcome to the server. \n') #send only takes string
-			#open a file
+		
+		#open a file
 		fp = open("/var/www/html/csv/nonverbal_data.csv", "w+")
 
 		#write item name to the file
@@ -83,73 +76,49 @@ class Receiver:
 
 		#infinite loop so that function do not terminate and thread do not end.
 		while True:
-				recv_data = conn.recv(65536)
-
-				
-				
+				recv_data = conn.recv(65536)				
 				bufnum+=1
-
 				
-				#print smileList
-
-				
-
-
-				
-				
-				
-				'''
-				#clear lists
-				del timeList[:]
-				del eyeList[:]
-				del nodList[:]
-				del smileList[:]
-				'''
-				
+				#break if no recv data avalible
 				if not recv_data: 
 					break
 				rev_buffer+=recv_data
-			 #send reply back to client
-				#  conn.sendall(reply)
-				#print reply
+			 
+				
 
 
-		#came out of loop
+		#come out of loop
 		timeSet=" "
 		timeSet += " ".join(re.findall("\"timeStamp\": (.*?)Z\"", rev_buffer))
 		
-		#print timeSet
+		
 		temp=timeSet.split(' \"')
 		for i in range(len(temp)):
 			if temp[i]!='' and temp[i]!=' ':
 				
 					timeList.append(temp[i])							
 		del temp[:]
-		print timeList
+		
 
 
 
 		eyeSet = " ".join(re.findall("\"eyeContactIntensity\": (.*?),", rev_buffer))
-		print eyeSet
-		temp=eyeSet.split(' ')
-		#print temp			
+		
+		temp=eyeSet.split(' ')		
 		for i in range(len(temp)):
 			if temp[i]!= '-1':
 					eyeList.append(temp[i])
 		del temp[:]
-		#print eyeList
-
+		
 
 		nodSet = " ".join(re.findall("\"nodIntensity\": (.*?),", rev_buffer))
-		print nodSet
-		temp=nodSet.split(' ')	
-		#print temp		
+		
+		temp=nodSet.split(' ')		
 		for i in range(len(temp)):
 			if temp[i]!= '-1':
 					nodList.append(temp[i])
 		del temp[:]
-		#print nodList
-
+		
 
 		smileSet = " ".join(re.findall("\"smileIntensity\": (.*?),", rev_buffer))
 		temp=smileSet.split(' ')				
@@ -160,11 +129,13 @@ class Receiver:
 		
 		#write to a file
 		self.write2file(fp,timeList,eyeList,nodList,smileList)
+		
 		#close file
 		fp.close()
+		
 		#close conn
 		conn.close()
-		print bufnum
+		print ('Used', bufnum, '65536-byte buffers')
 		
 	
 

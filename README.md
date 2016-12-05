@@ -20,4 +20,4 @@
         $ sudo python rev2json.py
 
         ```
-        ;then,execute Form1.cs by Visual Studio to send data through TCP to rev2json.py,the nonverbal_data.csv will be set up under /var/www/html/csv dir on AWS virtual machine 54.191.185.244.
+        ,then execute Form1.cs by Visual Studio to send data through TCP to rev2json.py,the nonverbal_data.csv will be set up under /var/www/html/csv dir on AWS virtual machine 54.191.185.244.

@@ -17,13 +17,13 @@
     var chart = c3.generate({
     bindto: '#chart',
     size: {
-        height: 240,
+        height: 480,
         width: 1000
     },
     data: {
         x: 'timeStamp', //the x-axis
-         xFormat: '%Y-%m-%d %H:%M:%SZ', // 'xFormat' can be used as custom format of 'x', default '%Y-%m-%d'
-        url: '/data/C3_test.csv' //it won't work locally. You need to upload it to a web server
+         xFormat: '%Y-%m-%d %H:%M:%S', // 'xFormat' can be used as custom format of 'x', default '%Y-%m-%d'
+        url: '/csv/nonverbal_data.csv' //it won't work locally. You need to upload it to a web server
     },
      zoom: {
         enabled: true
@@ -40,8 +40,8 @@
             // if false, convert to UTC internally
             //localtime: false,
             tick: {
-                //count:3,
-                format: '%Y-%m-%d %H:%M:%SZ'
+                count:20,
+                format: '%Y-%m-%d %H:%M:%S'
             }
         },
         y: {
@@ -63,8 +63,21 @@
 });
 chart.axis.range({max: 33, min: 0});
 
+
+/*
+setTimeout(function () {
+    chart.load({
+        
+        unload: 'smileIntensity'
+    });
+}, 10000);
+*/
+
     </script>
  
   </body>
+
+
+
 
 </html>

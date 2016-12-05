@@ -10,7 +10,7 @@
 * **linechart.html ,which is located in /var/www/html/csv dir on AWS virtual machine reads in the nonverbal_data.csv gernerated by rev2json.py to draw nonverbal feature score to linechart.** 
 
 
-* **Format**
+* **Execution Format**
 
 
 

@@ -67,7 +67,10 @@ class Receiver:
 		#Sending message to connected client
 		#conn.send('Welcome to the server. \n') #send only takes string
 			#open a file
-		fp = open("./nonverbal_data.csv", "w+")
+		fp = open("/var/www/html/csv/nonverbal_data.csv", "w+")
+
+		#write item name to the file
+		fp.write('timeStamp,eyeContactIntensity,nodIntensity,smileIntensity\n') 
 		timeList=[]
 		eyeList=[]
 		nodList=[]

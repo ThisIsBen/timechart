@@ -56,7 +56,7 @@ class Receiver:
 			#fp = open("/var/www/html/csv/nonverbal_data.csv", "w+")
 			#fp = open("./nonverbal_data.csv", "w+")
 			for timeindex in range(len(timeList)):
-				if eyeList[timeindex]!='-1' and nodList[timeindex]!='-1' and smileList[timeindex]!= '-1':
+				#if eyeList[timeindex]!='-1' and nodList[timeindex]!='-1' and smileList[timeindex]!= '-1':
 					fp.write( timeList[timeindex]+","+str(eyeList[timeindex])+","+str(nodList[timeindex])+","+str(smileList[timeindex])+"\n");
 			#fp.close()	
 
@@ -131,7 +131,7 @@ class Receiver:
 		temp=eyeSet.split(' ')
 		#print temp			
 		for i in range(len(temp)):
-			#if temp[i]!= '-1':
+			if temp[i]!= '-1':
 					eyeList.append(temp[i])
 		del temp[:]
 		#print eyeList
@@ -142,7 +142,7 @@ class Receiver:
 		temp=nodSet.split(' ')	
 		#print temp		
 		for i in range(len(temp)):
-			#if temp[i]!= '-1':
+			if temp[i]!= '-1':
 					nodList.append(temp[i])
 		del temp[:]
 		#print nodList
@@ -151,7 +151,7 @@ class Receiver:
 		smileSet = " ".join(re.findall("\"smileIntensity\": (.*?),", rev_buffer))
 		temp=smileSet.split(' ')				
 		for i in range(len(temp)):
-			#if temp[i]!= '-1':
+			if temp[i]!= '-1':
 					smileList.append(temp[i])
 		del temp[:]
 		
